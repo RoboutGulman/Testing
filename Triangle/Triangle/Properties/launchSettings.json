@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Triangle": {
+      "commandName": "Project",
+      "commandLineArgs": "1 2 3"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "commandLineArgs": "23"
+    }
+  }
+}

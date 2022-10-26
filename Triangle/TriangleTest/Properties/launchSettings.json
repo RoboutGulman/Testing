@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TriangleTest": {
+      "commandName": "Project",
+      "commandLineArgs": "\"../../../testCases.txt\""
+    }
+  }
+}

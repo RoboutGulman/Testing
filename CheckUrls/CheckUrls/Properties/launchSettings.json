@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CheckUrls": {
+      "commandName": "Project",
+      "commandLineArgs": "http://links.qatl.ru"
+    }
+  }
+}
