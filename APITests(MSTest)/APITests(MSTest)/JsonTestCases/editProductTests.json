@@ -1,0 +1,36 @@
+﻿{
+  "valid": {
+    "category_id": "2",
+    "title": "NewValidItemTitle",
+    "content": "ContentContent",
+    "price": "500",
+    "old_price": "999",
+    "status": "0",
+    "keywords": "SomethingNew",
+    "description": "DescriptionNew",
+    "hit": "1"
+  },
+  "validWithNotExistingId": {
+    "id": "983459",
+    "category_id": "2",
+    "title": "NewWatchTitle",
+    "content": "ContentContent",
+    "price": "200",
+    "old_price": "150",
+    "status": "0",
+    "keywords": "SomethingNew",
+    "description": "DescriptionNew",
+    "hit": "1"
+  },
+  "validWithoutId": {
+    "category_id": "2",
+    "title": "NewwwwItemTitleWithoutId",
+    "content": "ContentContent",
+    "price": "250",
+    "old_price": "250",
+    "status": "0",
+    "keywords": "SomethingNew",
+    "description": "DescriptionNew",
+    "hit": "1"
+  }
+}
