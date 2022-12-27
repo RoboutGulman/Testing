@@ -58,6 +58,8 @@
     <Compile Include="AddProductToCart\Tests\AddProductToCartTests.cs" />
     <Compile Include="Authorization\DriverMethods\AuthorizeMethods.cs" />
     <Compile Include="Authorization\Tests\AuthorizeTests.cs" />
+    <Compile Include="ProductSearch\DriverMethods\ProductSearchMethods.cs" />
+    <Compile Include="ProductSearch\Tests\ProductSearchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,12 +68,9 @@
   <ItemGroup>
     <Content Include="AddProductToCart\Configs\AddProductToCartCases.xml" />
     <Content Include="Authorization\Configs\AuthorizeCases.xml" />
+    <Content Include="ProductSearch\Configs\ProductSearchCases.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ProductSearch\Configs\" />
-    <Folder Include="ProductSearch\DriverMethods\" />
-    <Folder Include="ProductSearch\Tests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
