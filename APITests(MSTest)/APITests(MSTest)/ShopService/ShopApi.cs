@@ -1,9 +1,6 @@
 ﻿
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Text;
-using System.Net.Http.Json;
-using System.Text.Json.Nodes;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,29 +12,27 @@ namespace Shop.Services.Shop;
 public class ShopAPI
 {
     private readonly HttpClient _httpClient;
-    private readonly Uri _baseUri;
 
     private struct ApiMethodsUri
     {
-        public static string GetProducts = "api/products";
-        public static string DeleteProduct = "api/deleteproduct";
-        public static string AddProduct = "api/addproduct";
-        public static string EditProduct = "api/editproduct";
+        public static string GetProducts = "http://shop.qatl.ru/api/products";
+        public static string DeleteProduct = "http://shop.qatl.ru/api/deleteproduct";
+        public static string AddProduct = "http://shop.qatl.ru/api/addproduct";
+        public static string EditProduct = "http://shop.qatl.ru/api/editproduct";
 
         public ApiMethodsUri()
         {
         }
     }
 
-    public ShopAPI(Uri baseUri, HttpClient httpClient)
+    public ShopAPI(HttpClient httpClient)
     {
-        _baseUri = baseUri;
         _httpClient = httpClient;
     }
 
     public async Task<JArray> GetProducts()
     {
-        var requestUri = new Uri(_baseUri, ApiMethodsUri.GetProducts);
+        var requestUri = new Uri(ApiMethodsUri.GetProducts);
         var response = await _httpClient.GetAsync(requestUri);
 
         return (JArray)await GetJsonFromResponse(response);
@@ -45,9 +40,9 @@ public class ShopAPI
 
     public async Task<JObject> DeleteProduct(int id)
     {
-        var requestUri = new Uri(_baseUri, ApiMethodsUri.DeleteProduct);
+        var requestUri = new Uri(ApiMethodsUri.DeleteProduct);
 
-        //add parametr to uri
+        // add parametr to uri
         var uriBuilder = new UriBuilder(requestUri);
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         query[nameof(Product.id)] = id.ToString();
@@ -62,7 +57,7 @@ public class ShopAPI
 
     public async Task<JObject> AddProduct(Product product)
     {
-        var requestUri = new Uri(_baseUri, ApiMethodsUri.AddProduct);
+        var requestUri = new Uri(ApiMethodsUri.AddProduct);
         var response = await HttpPostProduct(requestUri, product);
 
         return (JObject)await GetJsonFromResponse(response);
@@ -70,7 +65,7 @@ public class ShopAPI
 
     public async Task<JObject> EditProduct(Product product)
     {
-        var requestUri = new Uri(_baseUri, ApiMethodsUri.EditProduct);
+        var requestUri = new Uri(ApiMethodsUri.EditProduct);
         var response = await HttpPostProduct(requestUri, product);
 
         return (JObject)await GetJsonFromResponse(response);

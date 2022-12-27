@@ -1,7 +1,8 @@
 ﻿{
   "valid": {
     "category_id": "2",
-    "title": "NewValidItemTitle",
+    "title": "Rollex-5321",
+    "alias": "rollex-5321",
     "content": "ContentContent",
     "price": "500",
     "old_price": "999",
@@ -14,6 +15,7 @@
     "id": "983459",
     "category_id": "2",
     "title": "NewWatchTitle",
+    "alias": "newwatchtitle-983459",
     "content": "ContentContent",
     "price": "200",
     "old_price": "150",

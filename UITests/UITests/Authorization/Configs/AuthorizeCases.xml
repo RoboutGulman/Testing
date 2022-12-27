@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestData>
+	<Test name="Authorization on the website">
+		<Login>Alex</Login>
+		<Password>123456</Password>
+		<ExpectedMessage>Вы успешно авторизованы</ExpectedMessage>
+	</Test>
+	<Test name="Authorization on the website with invalid user">
+		<Login>user</Login>
+		<Password>password</Password>
+		<ExpectedMessage>Логин/пароль введены неверно</ExpectedMessage>
+	</Test>
+</TestData>

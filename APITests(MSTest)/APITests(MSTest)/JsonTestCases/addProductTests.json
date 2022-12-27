@@ -2,6 +2,7 @@
   "valid": {
     "category_id": "1",
     "title": "ValidProductTitle",
+    "alias": "validproducttitle-0-0-0",
     "content": "ValidProductContent",
     "price": "300",
     "old_price": "301",
