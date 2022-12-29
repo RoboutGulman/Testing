@@ -1,33 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TestData>
 	<TestSearch name="Search concrete product">
-		<Query>Casio GA-1000-1AER</Query>
-		<Link>product/casio-ga-1000-1aer-3</Link>
+		<SearchQuery>Casio GA-1000-1AER</SearchQuery>
 		<Count>1</Count>
 	</TestSearch>
 	<TestSearch name="Search products by keyword returns max suggestions count">
-		<Query>Часы</Query>
-		<Link></Link>
+		<SearchQuery>Часы</SearchQuery>
 		<Count>10</Count>
 	</TestSearch>
 	<TestSearch name="Search products by keyword returns several suggestions">
-		<Query>Часы 2</Query>
-		<Link></Link>
+		<SearchQuery>Часы 2</SearchQuery>
 		<Count>2</Count>
 	</TestSearch>
-	<TestCategory name="Select search category without concrete category">
-		<BaseCategory>men</BaseCategory>
-		<ConcreteCategory></ConcreteCategory>
-		<Text></Text>
-	</TestCategory>
-	<TestCategory name="Select search category with concrete category">
-		<BaseCategory>men</BaseCategory>
-		<ConcreteCategory>epos</ConcreteCategory>
-		<Text></Text>
-	</TestCategory>
-	<TestCategory name="Select search category with concrete empty category">
-		<BaseCategory>women</BaseCategory>
-		<ConcreteCategory>adriatica</ConcreteCategory>
-		<Text>В этой категории товаров пока нет...</Text>
-	</TestCategory>
 </TestData>

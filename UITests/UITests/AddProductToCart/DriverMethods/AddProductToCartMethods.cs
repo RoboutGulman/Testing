@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace UITests.AddProductToCart.WebDriverMethods
+namespace UITests.AddProductToCart.DriverMethods
 {
 
-public struct CartProduct
+public struct CartProductInfo
 {
-    public CartProduct(string name, string quantity, string price)
+    public CartProductInfo(string name, string quantity, string price)
     {
         this.name = name;
         this.quantity = quantity;
@@ -22,9 +20,9 @@ public struct CartProduct
     public string price;
 }
 
-public struct CartTotal
+public struct CartTotalInfo
 {
-    public CartTotal(string quantity, string price)
+    public CartTotalInfo(string quantity, string price)
     {
         this.quantity = quantity;
         this.price = price;
@@ -45,20 +43,7 @@ internal class AddToCartMethods
                                  _modalXPath = By.XPath("//div[contains(@class,'modal-content')]"),
                                  _modalProductRowsXPath = By.XPath(".//tr[descendant::a]"),
                                  _modalTotalXPath = By.XPath(".//tr[descendant::td[contains(@class, 'cart')]]"),
-                                 _cartSimpleTotalXpath = By.XPath("//*[@class='simpleCart_total']"),
-                                 _modalCloseXPath = By.XPath("//*[contains(@class, 'close')]");
-
-    protected Dictionary<string, int> _modalProductRowColumns = new Dictionary<string, int> {
-        { "product", 0 },
-        { "name", 1 },
-        { "quantity", 2 },
-        { "price", 3 },
-    };
-
-    protected Dictionary<string, int> _modalTotal = new Dictionary<string, int> {
-        { "quantity", 1 },
-        { "price", 1 },
-    };
+                                 _cartSimpleTotalXpath = By.XPath("//*[@class='simpleCart_total']");
 
     public AddToCartMethods(IWebDriver webDriver)
     {
@@ -96,24 +81,17 @@ internal class AddToCartMethods
         return _webDriver.FindElement(_modalXPath);
     }
 
-    public ReadOnlyCollection<IWebElement> GetCartProducts()
-    {
-        return _webDriver.FindElements(_modalProductRowsXPath);
-    }
-
-    public CartProduct GetCartProduct(int index)
+    public CartProductInfo GetCartProduct(int index)
     {
         var products = _webDriver.FindElements(_modalProductRowsXPath);
         var product = products[index];
 
         var columns = product.FindElements(By.XPath(".//td"));
 
-        return new CartProduct(columns[_modalProductRowColumns["name"]].Text,
-                               columns[_modalProductRowColumns["quantity"]].Text,
-                               columns[_modalProductRowColumns["price"]].Text);
+        return new CartProductInfo(columns[1].Text, columns[2].Text, columns[3].Text);
     }
 
-    public CartTotal GetCartTotal()
+    public CartTotalInfo GetCartTotalInfo()
     {
         var total = _webDriver.FindElements(_modalTotalXPath);
 
@@ -123,25 +101,12 @@ internal class AddToCartMethods
         var totalQuantityColumns = totalQuantityRow.FindElements(By.XPath(".//td"));
         var totalPriceColumns = totalPriceRow.FindElements(By.XPath(".//td"));
 
-        return new CartTotal(totalQuantityColumns[_modalTotal["quantity"]].Text,
-                             totalPriceColumns[_modalTotal["price"]].Text.Remove(0, 1));
-        ;
+        return new CartTotalInfo(totalQuantityColumns[1].Text, totalPriceColumns[1].Text.Remove(0, 1));
     }
 
     public string GetSimpleCartTotal()
     {
         return _webDriver.FindElement(_cartSimpleTotalXpath).Text.Remove(0, 1);
-    }
-
-    public IWebElement GetProductItemCartElement(string link)
-    {
-        return _webDriver.FindElement(
-            By.XPath($"//div[descendant::a[contains(@href, '{link}')] and contains(@class, 'product-bottom')]"));
-    }
-
-    public void CloseModal()
-    {
-        _webDriver.FindElement(_modalCloseXPath).Click();
     }
 }
 }

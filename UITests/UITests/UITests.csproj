@@ -58,6 +58,8 @@
     <Compile Include="AddProductToCart\Tests\AddProductToCartTests.cs" />
     <Compile Include="Authorization\DriverMethods\AuthorizeMethods.cs" />
     <Compile Include="Authorization\Tests\AuthorizeTests.cs" />
+    <Compile Include="Order\DriverMethods\OrderMethods.cs" />
+    <Compile Include="Order\Tests\OrderTests.cs" />
     <Compile Include="ProductSearch\DriverMethods\ProductSearchMethods.cs" />
     <Compile Include="ProductSearch\Tests\ProductSearchTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +70,7 @@
   <ItemGroup>
     <Content Include="AddProductToCart\Configs\AddProductToCartCases.xml" />
     <Content Include="Authorization\Configs\AuthorizeCases.xml" />
+    <Content Include="Order\Configs\OrderCases.xml" />
     <Content Include="ProductSearch\Configs\ProductSearchCases.xml" />
   </ItemGroup>
   <ItemGroup />

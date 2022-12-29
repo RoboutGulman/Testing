@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestData>
+	<TestNotAuthorized name="Add product to cart">
+		<Category>citizen</Category>
+		<Name>Citizen JP1010-00E</Name>
+		<Quantity>1</Quantity>
+		<Price>400</Price>
+		<TotalQuantity>1</TotalQuantity>
+		<TotalPrice>400</TotalPrice>
+		<Link>product/citizen-jp1010-00e</Link>
+		<Login>Rob</Login>
+		<Password>123456</Password>
+		<CustomerName>Alex</CustomerName>
+		<Email>Alexey@yandex.ru</Email>
+		<Address>addres</Address>
+		<Note>комментарий</Note>
+		<Alert>Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа</Alert>
+	</TestNotAuthorized>
+</TestData>

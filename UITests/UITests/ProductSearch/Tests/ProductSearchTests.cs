@@ -33,8 +33,7 @@ public class SearchTests
     private SearchMethods _searchMethods;
     private IWebDriver _webDriver;
     private string _url = "http://shop.qatl.ru/";
-    private string _searchUrl = "search/";
-    private string _categoryUrl = "category/";
+    private string _searchUrl = "http://shop.qatl.ru/search/";
     public TestContext TestContext { get; set; }
 
     [TestInitialize]
@@ -42,7 +41,6 @@ public class SearchTests
     {
         _webDriver = new OpenQA.Selenium.Chrome.ChromeDriver(Environment.GetEnvironmentVariable("CHROME_DIR"));
         _webDriver.Navigate().GoToUrl(_url);
-        _webDriver.Manage().Window.Maximize();
 
         _searchMethods = new SearchMethods(_webDriver);
     }
@@ -54,8 +52,8 @@ public class SearchTests
     }
 
     [TestMethod]
-    [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", "..\\..\\ProductSearch\\Configs\\ProductSearchCases.xml",
-                "TestSearch", DataAccessMethod.Sequential)]
+    [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML",
+                "..\\..\\ProductSearch\\Configs\\ProductSearchCases.xml", "TestSearch", DataAccessMethod.Sequential)]
     public void SearchProducts()
     {
         _searchMethods.SetCurrentElement(_searchMethods.GetSearchFormElement());
@@ -63,55 +61,20 @@ public class SearchTests
         Assert.IsFalse(searchMenu.Displayed, "Expected not to see search menu when nothing was given to search");
 
         _searchMethods.SetCurrentElement(_searchMethods.GetSearchInputElement());
-        string query = TestContext.DataRow["Query"].ToString();
-        _searchMethods.FillInputElement(query);
+        string searchQuery = TestContext.DataRow["SearchQuery"].ToString();
+        _searchMethods.FillInputElement(searchQuery);
         Assert.IsTrue(searchMenu.Displayed, "Expected to see search menu when text was given to search");
 
-        int suggestionsCount = int.Parse(TestContext.DataRow["Count"].ToString());
+        int expectedSuggestionsCount = int.Parse(TestContext.DataRow["Count"].ToString());
         _searchMethods.SetCurrentElement(searchMenu);
-        Assert.AreEqual(suggestionsCount, _searchMethods.GetSearchMenuSuggesstionsCount(),
-                        $"Expected to get {suggestionsCount} number of suggestions");
+        Assert.AreEqual(expectedSuggestionsCount, _searchMethods.GetSearchMenuSuggesstionsCount(),
+                        $"Expected to get {expectedSuggestionsCount} number of suggestions");
 
         _searchMethods.SubmitSearchInput();
-        Assert.AreEqual($"{_url}{_searchUrl}", $"{_webDriver.Url.Split('?').First()}/",
+        Assert.AreEqual(_searchUrl, $"{_webDriver.Url.Split('?').First()}/",
                         "Expected to switch to search result page");
-        Assert.That.IsAppropriateBreadCrumb(_searchMethods.GetBreadCrumbText(), new List<string> { query });
+        Assert.That.IsAppropriateBreadCrumb(_searchMethods.GetBreadCrumbText(), new List<string> { searchQuery });
         Assert.That.IsEachWebElementEnabled(_searchMethods.GetSearchResults());
-    }
-
-    [TestMethod]
-    [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", "..\\..\\ProductSearch\\Configs\\ProductSearchCases.xml",
-                "TestCategory", DataAccessMethod.Sequential)]
-    public void SearchCategory()
-    {
-        _searchMethods.SetCurrentElement(_searchMethods.GetCategoryMenuElement());
-
-        string baseCategory = TestContext.DataRow["BaseCategory"].ToString();
-        string concreteCategory = TestContext.DataRow["ConcreteCategory"].ToString();
-        concreteCategory = (concreteCategory == "") ? baseCategory : concreteCategory;
-        _searchMethods.SelectCategory(baseCategory, concreteCategory);
-
-        Assert.AreEqual($"{_url}{_categoryUrl}{concreteCategory}", _webDriver.Url,
-                        "Expected to switch to the according category page");
-        var searchBreadCrumbText = _searchMethods.GetBreadCrumbText().ToLower();
-        Assert.That.IsAppropriateBreadCrumb(searchBreadCrumbText, new List<string> { baseCategory, concreteCategory });
-
-        var searchResults = _searchMethods.GetSearchResults();
-        if (searchResults.Count == 0)
-        {
-            var container = _searchMethods.GetSearchResultContainerElement();
-            var expectedText = TestContext.DataRow["Text"].ToString();
-            Assert.AreEqual(expectedText, container.Text, "Expected to get same search result text as input require");
-            return;
-        }
-
-        _searchMethods.SetCurrentElement(searchResults.First());
-        var productLink = _searchMethods.SelectSearchResultProduct();
-        Assert.AreEqual($"{productLink}", _webDriver.Url, "Expected to switch to concrete product page");
-
-        var actualCategory = _searchMethods.GetProductCategory().ToLower();
-        Assert.AreEqual(concreteCategory, actualCategory,
-                        "Ëxpected to get product that corresponds specified category");
     }
 }
 }
